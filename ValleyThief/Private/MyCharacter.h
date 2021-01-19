@@ -22,27 +22,54 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	UFUNCTION()
+		void MoveForward(float value);
+private:
+	UFUNCTION()
+		void MoveRight(float value);
+	UFUNCTION()
+		void BeginCrouch();
+	UFUNCTION()
+		void StopCrouch();
+	UFUNCTION()
+		void JumpStart();
+	UFUNCTION()
+		void JumpEnds();
+	UFUNCTION()
+		void Sprinting();
+	UFUNCTION()
+		void SprintingStops();
+	bool bCanFire;
+	bool bIsSprinting;
+	void OnThrown();
+	void OnFire();
+	/*void OnFireStop();*/
+	UFUNCTION()
+		void StartADS();
+	UFUNCTION()
+		void StopADS();
 
-public:	
+	bool bIsADS;
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<class AWeaponBase>WeaponClass;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<class AThrowObjects>ThrowableClass;
+	UPROPERTY(EditDefaultsOnly, Category = "WeaponComponent")
+		TSubclassOf<UDamageType> DamageTypes;
+
+	FTimerHandle TADSHandler;
+	void ADSCameraFov();
+
+	void OnReload();
+
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UFUNCTION()
-		void MoveForward(float value);
-	UFUNCTION()
-		void MoveRight(float value);
-	UFUNCTION()
-		void BeginCrouch();
-		UFUNCTION()
-		void StopCrouch();
-	
-	UFUNCTION()
-		void JumpStart();
-	UFUNCTION()
-		void JumpEnds();
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Camera Component")
 		UCameraComponent* CameraComp;
 	UPROPERTY(VisibleAnywhere, blueprintReadWrite, Category = MeshComponent, meta = (AllowPrivateAccess = "true"))
@@ -67,41 +94,15 @@ public:
 		bool IsPlayerSprinting();
 	UPROPERTY(BlueprintReadWrite, Category="Objective")
 	bool bIsCarryingObj;
+
 protected:
 
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<class AWeaponBase>WeaponClass;
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<class AThrowObjects>ThrowableClass;
-	UPROPERTY(EditDefaultsOnly, Category = "WeaponComponent")
-		TSubclassOf<UDamageType> DamageTypes;
 	/*UPROPERTY()
 		FTimerHandle Handle_ThrowWait;*/
 	class AThrowObjects* throwabless;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Weapon")
 	class AWeaponBase* Weapon;
 
-	UFUNCTION()
-		void Sprinting();
-	UFUNCTION()
-		void SprintingStops();
-		bool bCanFire;
-		bool bIsSprinting;
-		void OnThrown();
-		void OnFire();
-		/*void OnFireStop();*/
-		UFUNCTION()
-			void StartADS();
-		UFUNCTION()
-			void StopADS();
-
-		bool bIsADS;
-
-		UFUNCTION(BluePrintCallable, Category = "AimDownSight")
-			bool IsPlayerADS();
-
-		FTimerHandle TADSHandler;
-		void ADSCameraFov();
-
-		void OnReload();
+	UFUNCTION(BluePrintCallable, Category = "AimDownSight")
+	bool IsPlayerADS();
 };

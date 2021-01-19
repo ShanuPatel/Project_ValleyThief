@@ -11,10 +11,15 @@ UCLASS()
 class AObjectiveActor : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AObjectiveActor();
+
+private:
+	void PlayEffect();
+	UPROPERTY(EditDefaultsOnly, Category = "SoundFX")
+		USoundBase* PlayObjectivePicked;
 
 protected:
 	// Called when the game starts or when spawned
@@ -23,16 +28,12 @@ protected:
 		UStaticMeshComponent* ObjMeshComp;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Objective Comp")
 		USphereComponent* ObjSphereComp;
-
-	void PlayEffect();
-	UPROPERTY(EditDefaultsOnly, Category = "SoundFX")
-		USoundBase* PlayObjectivePicked;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Objective Effect")
 		UParticleSystem* ObjectiveEffect;
-public:	
+public:
 	// Called every frame
-	
+
 	virtual void Tick(float DeltaTime) override;
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor)override;
-	
+
 };
