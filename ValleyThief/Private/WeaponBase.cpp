@@ -23,7 +23,7 @@ AWeaponBase::AWeaponBase()
 //void AWeaponBase::BeginPlay()
 //{
 //	Super::BeginPlay();
-//	
+//
 //}
 
 // Called every frame
@@ -47,7 +47,7 @@ bool AWeaponBase::Fire()
 			--PistolAmmo;
 			return true;
 		}
-		
+
 	}
 	return false;
 }
@@ -70,12 +70,12 @@ bool AWeaponBase::Reload()
 		{
 			GunMeshComp->PlayAnimation(PistolReloadAnimation, false);
 		}*/
-		
+
 	}
 
 	PistolAmmo = 7;
 	TotalAmmo =TotalAmmo - PistolAmmo;
-	
+
 	return true;
 }
 
