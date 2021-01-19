@@ -12,10 +12,14 @@ UCLASS()
 class AWeaponBase : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AWeaponBase();
+
+private:
+	UPROPERTY(EditAnywhere, Category = "FireAnimation")
+		UAnimSequence* FireAnimation;
 
 protected:
 	// Called when the game starts or when spawned
@@ -23,16 +27,14 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gun Mesh")
 		USkeletalMeshComponent* GunMeshComp;
 
-	UPROPERTY(EditAnywhere, Category = "FireAnimation")
-		UAnimSequence* FireAnimation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ReloadAnimations")
 		UAnimSequence* SlideLockAnimation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ReloadAnimations")
 		UAnimSequence* PistolReloadAnimation;
-	
+
 	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
 		int PistolAmmo;*/
-public:	
+public:
 	// Called every frame
 	//virtual void Tick(float DeltaTime) override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
